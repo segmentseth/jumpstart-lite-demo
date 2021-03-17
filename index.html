@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <title>Hello, world!</title>
+</head>
+
+
+<!--
+    <title>AJS tester</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+  </head> -->
+
+<body>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+  <div class="container d-flex p-0 mb-0" style="max-width: 1000px;">
+    <div class="callout shadow-sm p-3 mb-5 bg-body rounded">
+      <div class="p-3 mb-0 bg-body rounded">
+        <h2>Welcome!</h2>
+        <p>This page sends typical funnel events for two different users to a demo Analytics.js Segment library. 
+          To see how each button click below logs an event in Segment,
+          visit <a href="https://app.segment.com/jslite-sandbox/sources/demo_simple_website/debugger" target="_blank">this Segment debugger.</a>
+          You'll need to request read-only access to the workspace.  To optimize the demo, please click the buttons in the order presented (left to right an top to bottom)</p>
+
+          <div class="d-flex">
+              <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Toggle Event Details
+              </button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+  <!--Acquisition Events -->
+  <div class="container p-0 mb-0" style="max-width: 1000px;">
+    <div class="callout shadow p-3 mb-5 bg-body rounded text-center">
+      <h2>Acquisition</h2>
+      <p>Anonymous visitor lands via Google paid search and signs up</p>
+      <button class="btn btn-primary" onclick="
+      analytics.page('Landing',
+      {}, 
+          { 'context': {
+            'campaign': {
+              'source': 'google',
+              'medium': 'paid search',
+              'campaign': 'optimized keywords'
+              }
+          }  
+          }
+          )
+          ">
+        Page: Landing<span id="collapseExample" class="collapse" style="font-size: 0.85em"><br>via Google Paid Search</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+      analytics.track('Button Clicked', {
+        'button_type': 'Signup',
+        'button_text': 'Get Started',
+        'button_color': 'green'
+      })">
+        Track: Button Clicked<span id="collapseExample" class="collapse" style="font-size: 0.85em"><br>type='Signup'</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+      analytics.identify('12345', {
+        'first_name': 'Anna',
+        'last_name': 'Lytics',
+        'email': 'anna.lytics@notquitegmail.com',
+        'account_type': 'free',
+        'signup_type': 'organic'
+      })
+      analytics.track('Signed Up', 
+        {
+          'account_type': 'free', 
+          'signup_type': 'organic' 
+          });
+          ">
+        Track: Signed Up<span id="collapseExample" class="collapse" style="font-size: 0.85em"><br>& identify new user (Anna Lytics)</span>
+      </button>
+      <br />
+      <br />
+
+    </div>
+  </div>
+
+  <!--Activation Events -->
+  <div class="container p-0 mb-0" style="max-width: 950px;">
+    <div class="callout shadow p-3 mb-5 bg-body rounded text-center">
+      <h2>Activation</h2>
+      <p>Newly signed-up user clicks activation email and updates profile</p>
+      <button class="btn btn-primary" onclick="
+      analytics.track('Email Link Clicked', {
+        'email_subject': 'Welcome!  Just one more step!',
+        'campaign_name': 'Profile activation',
+        'button_clicked': 'Complete my profile'
+      })
+      ">
+        Track: Email Link Clicked<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>with campaign info</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+      analytics.identify('12345', {
+        'first_name': 'Anna',
+        'last_name': 'Lytics',
+        'email': 'anna.lytics@notquitegmail.com'
+      })
+      analytics.track('Signed In')
+      ">
+        Track: Signed In<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>& identify Anna's basic info</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+      analytics.identify('12345', {
+        'birthday': '1979-03-09T00:00.000Z',
+        'favorite_color': 'blue'
+      })
+      analytics.track('Profile Updated')
+      ">
+        Track: Profile Updated<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>& identify profile updates</span>
+      </button>
+      <br />
+      <br />
+    </div>
+  </div>
+
+  <!--Retention Events -->
+  <div class="container p-0 mb-0" style="max-width: 900px;">
+    <div class="callout shadow p-3 mb-5 bg-body rounded text-center">
+      <h2>Retention</h2>
+      <p>User revisits the app, engages core features, and eventually signs up for a trial</p>
+     <button class="btn btn-primary" onclick="
+      analytics.identify('12345', {
+        'first_name': 'Anna',
+        'last_name': 'Lytics',
+        'email': 'anna.lytics@notquitegmail.com'
+      })
+      analytics.track('Signed In')
+      ">
+        Track: Signed In<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>& identify Anna's basic info</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+      analytics.track('Button Clicked', {
+        'button_type': 'Trial Start',
+        'button_text': 'Start Your 14-Day Trial',
+        'button_color': 'green',
+      })
+      ">
+        Track: Button Clicked<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>type='Trial Start'</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+      analytics.track('Trial Started', {
+        'trial_start_date': '2021-03-01T00:00.000Z',	
+        'trial_end_date': '2021-03-15T00:00.000Z',
+        'trial_plan_name': 'pro'
+      })
+      ">
+        Track: Trial Started<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>with trial details</span>
+      </button>
+      <br />
+      <br />
+    </div>
+  </div>
+
+  <!--Revenue Events -->
+  <div class="container p-0 mb-0" style="max-width: 850px;">
+    <div class="callout shadow p-3 mb-5 bg-body rounded text-center">
+      <h2>Revenue</h2>
+      <p>User purchases a full subscription or an individual product</p>
+      <button class="btn btn-primary" onclick="
+      analytics.track('Product Viewed', {
+        'sku': 'sub_013',
+        'category': 'annual pro subscription',
+        'category': 'subscriptions',
+        'variant': 'pro',
+        'duration': 'annual',
+        'start_date': '2021-03-15T00:00.000Z',
+        'expiration_date': '2022-03-15T00:00.000Z',
+        'price': 50.00,
+        'quantity': 1
+        })
+      ">
+        Track: Product Viewed<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>annual $50 subscription</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+      analytics.track('Product Added', {
+        'sku': 'sub_013',
+        'name': 'annual pro subscription',
+        'category': 'subscriptions',
+        'variant': 'pro',
+        'duration': 'annual',
+        'start_date': '2021-03-15T00:00.000Z',
+        'expiration_date': '2022-03-15T00:00.000Z',
+        'price': 50.00,
+        'quantity': 1
+        })
+      ">
+        Track: Product Added<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>annual $50 subscription</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+ 
+      analytics.group('abcde', {
+        'name': 'Team Anna Lytics',
+        'primary_account_email': 'anna.lytics@notquitegmail.com',
+        'team_type': 'pro',
+          'subscription':  { 
+            'name': 'annual pro subscription',
+            'category': 'subscriptions',
+            'variant': 'pro',
+            'duration': 'annual',
+            'start_date': '2021-03-15T00:00.000Z',
+            'expiration_date': '2022-03-15T00:00.000Z',
+            'price': 50.00
+            }
+      })
+      
+      analytics.identify('12345', {
+        'account_type': 'paid'
+      })
+
+      analytics.track('Order Completed', {
+        'order_id': 1083913831293,
+        'total': 50.00,
+        'shipping': 0,		
+        'tax': 0,		
+        'payment_method': 'credit card',		
+        'products': [
+          {
+          'sku': 'sub_013',
+          'category': 'annual pro subscription',
+          'category': 'subscriptions',
+          'variant': 'pro',
+          'duration': 'annual',
+          'start_date': '2021-03-15T00:00.000Z',
+          'expiration_date': '2022-03-15T00:00.000Z',
+          'price': 50.00,
+          'quantity': 1
+          }
+        ]
+      },{ 
+        'context': {
+          'groupId': 'abcde'
+          }
+      })
+      ">
+        Track: Order Completed<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>annual $50 subscription</span>
+      </button>
+      <br />
+      <br />
+    </div>
+  </div>
+
+  <!--Referral Events -->
+  <div class="container p-0 mb-0" style="max-width: 800px;">
+    <div class="callout shadow p-3 mb-5 bg-body rounded text-center">
+      <h2>Referral</h2>
+      <p>User invites someone else into the app, driving a viral signup</p>
+      <button class="btn btn-primary" onclick="
+      analytics.track('Invite Sent', {
+        'invitee_email': 'martin@martechawesome.biz',
+        'invitee_first_name': 'Martin',
+        'invitee_last_name': 'Martech',
+        'invitee_role': 'collaborator'
+      },{ 
+        'context': {
+          'groupId': 'abcde'
+          }
+      })
+      ">
+        Track: Invite Sent<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>to Anna's collaborator Martin</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+      analytics.reset();
+      analytics.track('Email Link Clicked', {
+        'email_subject': 'Anna has invited you to join her team',
+        'campaign_name': 'Viral Invite',
+        'button_clicked': 'Join Anna'
+      }
+      )
+      ">
+        Track: Email Link Clicked<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>by Martin on a different browser</span>
+      </button>
+      <button class="btn btn-primary" onclick="
+      analytics.identify('6789013', {
+        'first_name': 'Martin',
+        'last_name': 'Martech',
+        'email': 'martin@martechawesome.biz',
+        'account_type': 'free',
+        'signup_type': 'viral',
+      })
+      analytics.track('Signed Up', 
+        {
+          'account_type': 'free', 
+          'signup_type': 'organic'
+          },
+          { 
+        'context': {
+          'groupId': 'abcde'
+          }
+          });
+      ">
+        Track: Signed Up<span id="collapseExample" class="collapse"  style="font-size: 0.85em"><br>& identify Martin's info</span>
+      </button>
+      <br />
+      <br />
+    </div>
+<div class="text-center p-1">data looking wonky in the debugger?<br>
+    <button class="btn btn-secondary btn-sm" onclick="
+    analytics.reset()
+    analytics.track('Cookies Reset')">
+    Clear & Reset Segment Cookies</button>
+</div>
+  </div>
+
+
+
+  <script>
+    ! function() {
+      var analytics = window.analytics = window.analytics || [];
+      if (!analytics.initialize)
+        if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice.");
+        else {
+          analytics.invoked = !0;
+          analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware",
+            "setAnonymousId", "addDestinationMiddleware"
+          ];
+          analytics.factory = function(e) {
+            return function() {
+              var t = Array.prototype.slice.call(arguments);
+              t.unshift(e);
+              analytics.push(t);
+              return analytics
+            }
+          };
+          for (var e = 0; e < analytics.methods.length; e++) {
+            var key = analytics.methods[e];
+            analytics[key] = analytics.factory(key)
+          }
+          analytics.load = function(key, e) {
+            var t = document.createElement("script");
+            t.type = "text/javascript";
+            t.async = !0;
+            t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";
+            var n = document.getElementsByTagName("script")[0];
+            n.parentNode.insertBefore(t, n);
+            analytics._loadOptions = e
+          };
+          analytics.SNIPPET_VERSION = "4.13.1";
+          analytics.load("buE0KtAs3a5zqlBepVRdvm2jWDUqe7rl");
+          // analytics.page();
+        }
+    }();
+  </script>
+</body>
+
+</html>
